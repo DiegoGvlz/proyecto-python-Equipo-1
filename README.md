@@ -2,3 +2,4 @@
 
 Integrantes: 
 -García Vélez Diego Emmanuel 
+-Andrik Alejandro Rivera Domínguez 
