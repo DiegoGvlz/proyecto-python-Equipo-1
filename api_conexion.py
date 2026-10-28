@@ -2,8 +2,10 @@ import requests
 
 def obtener_datos():
     """Descarga y retorna los datos JSON de la API."""
+    
     url = "https://pokeapi.co/api/v2/pokemon/"
     respuesta = requests.get(url)
+    respuesta.raise_for_status()
     datos = respuesta.json()
     return datos
 
