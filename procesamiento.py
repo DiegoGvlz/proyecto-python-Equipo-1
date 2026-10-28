@@ -38,5 +38,17 @@ def organizar_datos(datos):
             "altura": datos_pokemon.get("height", 0) / 10
         })
 
-        return pokemon_organizados
+    return pokemon_organizados
+
+
+def contar_tipos(pokemon_organizados):
+    """Cuenta cuántos pokemón pertenecen a cada tipo."""
+    conteo_tipos = {}
+
+    for pokemon in pokemon_organizados: 
+        for tipo in pokemon["tipos"]:
+            if tipo not in conteo_tipos:
+                conteo_tipos[tipo] = 0
+            conteo_tipos[tipo] += 1
+    return conteo_tipos
 
