@@ -19,22 +19,30 @@ def procesar(datos):
 
 def organizar_datos(datos):
     """Obtiene y organiza los datos individuales de cada pokemón."""
+
     pokemon_organizados = []
+
+    # Recorre la lista de Pokemón obtenida de la API.
     resultados = datos.get("results", [])
     
     for pokemon in resultados:
+        # Consulta la dirección individual de cada Pokemón.
         respuesta = requests.get(pokemon["url"], timeout=10)
         respuesta.raise_for_status()
         datos_pokemon = respuesta.json()
 
+        # Guarda todos los tipos que tiene el Pokemón.
         tipos = []
         for tipo in datos_pokemon.get("types", []):
             tipos.append(tipo["type"]["name"])
 
+        # Guarda los datos organizados en un diccionario.
         pokemon_organizados.append({
             "nombre": datos_pokemon.get("name", "").capitalize(), 
-            "tipos": tipos, 
+            "tipos": tipos, +
+            # La API proporciona el peso en hectogramos, asi que lo convertimos a kilogramos. 
             "peso": datos_pokemon.get("weight", 0) / 10,
+            # La API proporciona la altura en decímetros, asi que lo convertimos a metros. 
             "altura": datos_pokemon.get("height", 0) / 10
         })
 
@@ -47,8 +55,10 @@ def contar_tipos(pokemon_organizados):
 
     for pokemon in pokemon_organizados: 
         for tipo in pokemon["tipos"]:
+            # Si el tipo todavía no existe, comienza su contador en cero. 
             if tipo not in conteo_tipos:
                 conteo_tipos[tipo] = 0
+            # Aumenta el contador del tipo correspondiente. 
             conteo_tipos[tipo] += 1
     return conteo_tipos
 
