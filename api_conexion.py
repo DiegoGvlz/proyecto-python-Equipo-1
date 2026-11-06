@@ -2,21 +2,29 @@ import requests
 
 def obtener_datos():
     """Descarga y retorna los datos JSON de la API."""
-
-    # Url de la API que contiene la lista de Pokémon. 
     url = "https://pokeapi.co/api/v2/pokemon/"
-
-    # Realiza la solicitud y establece un limite de espera de 10 segundos. 
     respuesta = requests.get(url, timeout=10)
-    
-    # Comprueba si la solitud fue exitosa. 
     respuesta.raise_for_status()
-
-    # Convierte la respuesta JSON en datos que python puede utilizar. 
     datos = respuesta.json()
     return datos
 
-# Linea que permite probar el archivo de manera independiente. 
+
+def obtener_estadisticas_pokemon(id_o_nombre):
+    """
+    Consulta la PokéAPI para obtener los datos detallados y 
+    estadísticas base de un Pokémon específico usando su ID o nombre exacto.
+    """
+    # Si le pasas un número (ej. 6), lo convierte a texto de forma segura
+    url = f"https://pokeapi.co/api/v2/pokemon/{str(id_o_nombre).lower().strip()}"
+    respuesta = requests.get(url, timeout=10)
+    
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        print(f"No se encontró al Pokémon '{id_o_nombre}'.")
+        return None
+
+
 if __name__ == "__main__":
     datos = obtener_datos()
     print(datos)
