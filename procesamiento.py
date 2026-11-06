@@ -39,7 +39,7 @@ def organizar_datos(datos):
         # Guarda los datos organizados en un diccionario.
         pokemon_organizados.append({
             "nombre": datos_pokemon.get("name", "").capitalize(), 
-            "tipos": tipos, +
+            "tipos": tipos,
             # La API proporciona el peso en hectogramos, asi que lo convertimos a kilogramos. 
             "peso": datos_pokemon.get("weight", 0) / 10,
             # La API proporciona la altura en decímetros, asi que lo convertimos a metros. 
