@@ -4,12 +4,14 @@ import matplotlib.pyplot as plt
 def graficar_tipos(conteo_tipos): 
     """Genera y guarda la gráfica de barras de Pokemónes por tipo con sus respectivos colores."""
 
-    resultados = sorted(
+    # Ordena los tipos de mayor a menor cantidad.
+    tipos_ordenados = sorted(
         conteo_tipos.items(),
         key=lambda elemento: elemento[1],
         reverse=True
     )
- 
+
+    # Separa los nombres y las cantidades.
     tipos = [resultado[0] for resultado in resultados]
     cantidades = [resultado[1] for resultado in resultados]
 
@@ -40,16 +42,38 @@ def graficar_tipos(conteo_tipos):
         colores_tipos.get(tipo, "gray")
         for tipo in tipos
     ]
-     
-    plt.figure(figsize=(10, 6))
-    plt.bar(tipos, cantidades, color=colores)
-    plt.title("Cantidad de Pokemónes por tipo")
-    plt.xlabel("Tipos de Pokemón")
-    plt.ylabel("Cantidad de Pokemón")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.savefig("grafica1.png")
+
+    # Crea la gráfica de pastel.
+    plt.figure(figsize=(11, 8))
+    plt.pie(
+        cantidades,
+        colors=colores,
+        startangle=90,
+        autopct=lambda porcentaje: f"{porcentaje:.1f}%" if porcentaje >= 2 else "",
+        pctdistance=0.75
+    )
+
+    
+    # Crea la leyenda con nombres y cantidades
+    etiquetas = [
+        f"{tipo}: {cantidad}"
+        for tipo, cantidad in tipos_ordenados
+    ]
+
+    plt.legend(
+        etiquetas,
+        title="Tipos de Pokémon",
+        loc="center left",
+        bbox_to_anchor=(1, 0.5)
+    )
+
+    plt.title("Distribución de Pokémon por tipo")
+    plt.axis("equal")
+
+    # Guardar y mostrar la gráfica
+    plt.savefig("grafica1.png", bbox_inches="tight")
     plt.show()
+    plt.close()
 
 
 #Gráfica 2: Comparación de peso entre pokemónes.
