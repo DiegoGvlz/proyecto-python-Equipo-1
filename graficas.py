@@ -11,9 +11,9 @@ def graficar_tipos(conteo_tipos):
         reverse=True
     )
 
-    # Separa los nombres y las cantidades.
-    tipos = [resultado[0] for resultado in resultados]
-    cantidades = [resultado[1] for resultado in resultados]
+    # Separa los nombres y las cantidades usando la variable correcta (tipos_ordenados)
+    tipos = [resultado[0] for resultado in tipos_ordenados]
+    cantidades = [resultado[1] for resultado in tipos_ordenados]
 
     #Asigno colores a cada tipo de Pokemón
     colores_tipos = {
@@ -52,7 +52,6 @@ def graficar_tipos(conteo_tipos):
         autopct=lambda porcentaje: f"{porcentaje:.1f}%" if porcentaje >= 2 else "",
         pctdistance=0.75
     )
-
     
     # Crea la leyenda con nombres y cantidades
     etiquetas = [
